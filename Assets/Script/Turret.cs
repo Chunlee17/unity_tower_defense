@@ -39,7 +39,7 @@ public class Turret : MonoBehaviour
         if (fireCountdown <= 0)
         {
             Shoot();
-            fireCountdown = 1f / fireRate;
+            fireCountdown = 1/fireRate;
 
         }
         fireCountdown -= Time.deltaTime;
