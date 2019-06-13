@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour
     {
         GameObject effectGO = Instantiate(bulletImpactEffect, transform.position, transform.rotation);
         Destroy(effectGO, 1f);
+		Destroy(target.gameObject);
         Destroy(gameObject);
     }
 }
