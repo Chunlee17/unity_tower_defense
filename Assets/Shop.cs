@@ -18,8 +18,8 @@ public class Shop : MonoBehaviour
 	}
 
 
-	public void purchaseAnotherTurret()
+	public void purchaseMissileLauncher()
 	{
-		buildManager.setTurretToBuild(buildManager.anotherTurretPrafab);
+		buildManager.setTurretToBuild(buildManager.missileLauncherPrafab);
 	}
 }
