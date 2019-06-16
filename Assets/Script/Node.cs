@@ -6,11 +6,13 @@ public class Node : MonoBehaviour
 {
     public Color hoverColor;
     public Color startColor;
+	public Color noMoneyColor;
     public Vector3 offset;
 
     private Renderer rend;
 
-    private GameObject turret;
+	[Header("Optional")]
+    public GameObject turret;
 
 	BuildManager buildManager;
 
@@ -22,7 +24,7 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown() {
 
-		if(buildManager.getTurretToBuild() == null)
+		if(!buildManager.CanBuild)
 		{
 			return;
 		}
@@ -35,12 +37,14 @@ public class Node : MonoBehaviour
             return;
         }
 
-        //Build Turret
-        GameObject turretToBuild = BuildManager.instance.getTurretToBuild();
-        turret = Instantiate(turretToBuild, transform.position + offset, transform.rotation);
-        
+		buildManager.buildTurretOn(this);
         
     }
+
+	public Vector3 getBuildPosition()
+	{
+		return transform.position + offset;
+	}
 
 	private void OnMouseOver()
 	{
@@ -57,8 +61,18 @@ public class Node : MonoBehaviour
 		{
 			return;
 		}
-		if (buildManager.getTurretToBuild() == null) return;
-        rend.material.color = hoverColor;
+		if (!buildManager.CanBuild)
+			return;
+
+		if (buildManager.HasMoney)
+		{
+			rend.material.color = hoverColor;
+		}
+		else
+		{
+			rend.material.color = noMoneyColor;
+		}
+        
     }
 
     private void OnMouseExit() {
