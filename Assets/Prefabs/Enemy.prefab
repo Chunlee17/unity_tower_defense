@@ -106,4 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   wavepointIndex: 0
+  Health: 100
+  moneyGained: 100
+  enemyDeathEffect: {fileID: 6109174349744790446, guid: 2be9fa290febc6f4f85dabb1fa95bb8d,
+    type: 3}
   target: {fileID: 0}
