@@ -8,6 +8,8 @@ public class Shop : MonoBehaviour
 	private BuildManager buildManager;
 	public TurretModel standartTurret;
 	public TurretModel missileLauncher;
+	public TurretModel laserBeamer;
+
 
 	private void Start()
 	{
@@ -22,5 +24,10 @@ public class Shop : MonoBehaviour
 	public void selectMissileLauncher()
 	{
 		buildManager.selectTurretToBuild(missileLauncher);
+	}
+
+	public void selectLaserBeamer()
+	{
+		buildManager.selectTurretToBuild(laserBeamer);
 	}
 }

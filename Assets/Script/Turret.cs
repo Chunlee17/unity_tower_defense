@@ -4,20 +4,34 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
+	private Enemy targetEnemy;
 
-    [Header("Attribute")]
+    [Header("General")]
     public float range = 10f;
+
+	[Header("use bullets")]
     public float fireRate = 3f;
     private float fireCountdown = 0f;
+	public GameObject bulletPrafab;
 
-    [Header("Unity setup Field")]
+	[Header("Laser")]
 
+	public float damageOverFrame;
+	public bool useLaser = false;
+	[Range(0, 100)]
+	public float slowPercentage;
+
+	public LineRenderer lineRenderer;
+
+	[Header("Unity setup Field")]
+
+	public Light impactLight;
+	public ParticleSystem laserParticle;
     public string enemytag = "Enemy";
     public float turnSpeed = 10f;
     public Transform partToRotate;
 
-    public GameObject bulletPrafab;
     public Transform firePoint;
 
     void Start()
@@ -28,31 +42,72 @@ public class Turret : MonoBehaviour
     void Update()
     {
         if (target == null)
-        {
-            return;
-        }
-        Vector3 direction = target.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        Vector3 rotation = Quaternion.Lerp(partToRotate.rotation,lookRotation,Time.deltaTime*turnSpeed).eulerAngles;
-        partToRotate.rotation = Quaternion.Euler(0f,rotation.y,0f);
+		{
+			if (useLaser)
+			{
+				if (lineRenderer.enabled) {
+					impactLight.enabled = false;
+					laserParticle.Stop();
+					lineRenderer.enabled = false;
+				} 
+			}
+			return;
+		} 
+		LockOnTarget();
+		if (useLaser)
+		{
+			Laser();
+		}
+		else
+		{
+			if (fireCountdown <= 0)
+			{
+				Shoot();
+				fireCountdown = 1 / fireRate;
+			}
+			fireCountdown -= Time.deltaTime;
+		}
 
-        if (fireCountdown <= 0)
-        {
-            Shoot();
-            fireCountdown = 1/fireRate;
-        }
-        fireCountdown -= Time.deltaTime;
+        
     }
 
     public void Shoot()
     {
-        GameObject bulletGO = (GameObject)Instantiate(bulletPrafab, firePoint.position, firePoint.rotation);
+        GameObject bulletGO = Instantiate(bulletPrafab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
         {
             bullet.Seek(target);
         }
     }
+
+	public void Laser()
+	{
+		targetEnemy.takeDamage(damageOverFrame * Time.deltaTime);
+		targetEnemy.Slow(slowPercentage);
+		if (!lineRenderer.enabled)
+		{
+			impactLight.enabled = true;
+			lineRenderer.enabled = true;
+			laserParticle.Play();
+		}
+		lineRenderer.SetPosition(0, firePoint.position);
+		lineRenderer.SetPosition(1, target.position);
+
+		Vector3 dir = firePoint.position - target.position;
+
+		laserParticle.transform.position = target.position + dir.normalized;
+
+		laserParticle.transform.rotation = Quaternion.LookRotation(dir);
+	}
+
+	public void LockOnTarget()
+	{
+		Vector3 direction = target.position - transform.position;
+		Quaternion lookRotation = Quaternion.LookRotation(direction);
+		Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+		partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+	}
     void updateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemytag);
@@ -69,8 +124,11 @@ public class Turret : MonoBehaviour
                 nearestEnemy = enemy;
             }
         }
-        if (nearestEnemy != null && shortestDistance <= range)       
-            target = nearestEnemy.transform;        
+		if (nearestEnemy != null && shortestDistance <= range) {
+			targetEnemy = nearestEnemy.GetComponent<Enemy>();
+			target = nearestEnemy.transform;
+		}      
+                    
         else
             target = null;
     }

@@ -7,13 +7,21 @@ public class WaveSpawner : MonoBehaviour
 {
     public Transform enemyPrafab;
     public Transform spawnPoints;
+	private Enemy enemy;
+	private float enemyStartHealth;
     public float timeBetweenWaves;
     public float countdown;
-    public float waveIndex;
+    public int waveIndex;
     public Text waveCountdownText;
 	public Text waveText;
 
-    void Update()
+
+	private void Start()
+	{
+		enemy = enemyPrafab.GetComponent<Enemy>();
+		enemyStartHealth = enemy.Health;
+	}
+	void Update()
     {
         if (countdown <= 0f)
         {
@@ -30,9 +38,10 @@ public class WaveSpawner : MonoBehaviour
     IEnumerator spawnWave()
     {
         waveIndex++;
+		PlayerStats.Rounds = waveIndex;
 		waveText.text = "Wave: " + waveIndex.ToString();
 		waveText.CrossFadeAlpha(0, 2f,true);
-        for (int i = 0; i < waveIndex; i++)
+        for (int i = 0; i <= waveIndex; i++)
         {
             spawnEnemy();
             yield return new WaitForSeconds(0.5f);
@@ -42,6 +51,8 @@ public class WaveSpawner : MonoBehaviour
 
     void spawnEnemy()
     {
+		enemy = enemyPrafab.GetComponent<Enemy>();
+		enemy.Health = enemyStartHealth + (waveIndex*50);
         Instantiate(enemyPrafab, spawnPoints.position, spawnPoints.rotation);
     }
 }

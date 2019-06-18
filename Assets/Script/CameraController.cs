@@ -25,6 +25,12 @@ public class CameraController : MonoBehaviour
 		{
 			return;
 		}
+
+		if (GameManager.gameEnded)
+		{
+			this.enabled = false;
+			return;
+		}
 		if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)
 		{
 			transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);

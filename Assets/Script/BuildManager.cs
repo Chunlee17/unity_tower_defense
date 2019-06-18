@@ -8,10 +8,6 @@ public class BuildManager : MonoBehaviour
 
     private TurretModel turretToBuild;
 
-    public GameObject standardTurretPrafab;
-
-	public GameObject missileLauncherPrafab;
-
 	public GameObject buildEffectParticle;
 
     private void Awake()

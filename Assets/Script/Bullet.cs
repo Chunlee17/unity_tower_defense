@@ -17,12 +17,15 @@ public class Bullet : MonoBehaviour
     {
         if (target==null)
         {
-            Destroy(gameObject);
+			GameObject effectGO = Instantiate(ImpactEffect, transform.position, transform.rotation);
+			Destroy(effectGO, 1f);
+			Destroy(gameObject);
             return;
         }
 
         Vector3 direction = target.position - transform.position;
         float distanceThisFrame = Speed * Time.deltaTime;
+		//
         if(direction.magnitude <= distanceThisFrame)
         {
             hitTarget();
@@ -37,7 +40,7 @@ public class Bullet : MonoBehaviour
     void hitTarget()
     {
         GameObject effectGO = Instantiate(ImpactEffect, transform.position, transform.rotation);
-        Destroy(effectGO, 5f);
+        Destroy(effectGO, 1f);
 
 		if(explosionRadius > 1)
 		{
@@ -48,8 +51,9 @@ public class Bullet : MonoBehaviour
 			Damage(target);
 		}
 
-        Destroy(gameObject);
-    }
+		Destroy(gameObject);
+
+	}
 
 	void Explode()
 	{
@@ -61,6 +65,7 @@ public class Bullet : MonoBehaviour
 				Damage(collider.transform);
 			}
 		}
+		
 	}
 	void Damage(Transform enemyGO)
 	{
@@ -69,6 +74,7 @@ public class Bullet : MonoBehaviour
 		{
 			e.takeDamage(damage);
 		}
+
 		
 	}
 
