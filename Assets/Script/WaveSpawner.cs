@@ -51,8 +51,8 @@ public class WaveSpawner : MonoBehaviour
 
     void spawnEnemy()
     {
-		enemy = enemyPrafab.GetComponent<Enemy>();
-		enemy.Health = enemyStartHealth + (waveIndex*50);
+		//enemy = enemyPrafab.GetComponent<Enemy>();
+		//enemy.Health = enemyStartHealth + (waveIndex*50);
         Instantiate(enemyPrafab, spawnPoints.position, spawnPoints.rotation);
     }
 }

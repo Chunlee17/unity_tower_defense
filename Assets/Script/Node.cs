@@ -11,9 +11,10 @@ public class Node : MonoBehaviour
 
     private Renderer rend;
 
-	[Header("Optional")]
+	[HideInInspector]
     public GameObject turret;
-
+	public TurretModel turretModel;
+	public bool isUpgraded = false;
 	BuildManager buildManager;
 
     private void Start() {
@@ -23,23 +24,68 @@ public class Node : MonoBehaviour
     }
 
     private void OnMouseDown() {
-
-		if(!buildManager.CanBuild)
-		{
-			return;
-		}
 		if (EventSystem.current.IsPointerOverGameObject())
 		{
 			return;
 		}
-		if (turret !=null) {
-            Debug.Log("Can't build here");
-            return;
-        }
 
-		buildManager.buildTurretOn(this);
+		//if we have click turret
+		if (turret !=null) {
+			buildManager.selectNode(this);
+			return;
+        }
+		if (!buildManager.CanBuild)
+		{
+			return; 
+		}
+
+		buildTurret(buildManager.getTurretToBuild());
         
     }
+
+	public void buildTurret(TurretModel turretModelToBuild)
+	{
+		if (PlayerStats.Money < turretModelToBuild.cost)
+		{
+			Debug.Log("Not Enough money to build!!");
+			return;
+		}
+
+		PlayerStats.Money -= turretModelToBuild.cost;
+
+		//get turretmodel prefab
+		GameObject _turretPrefab = Instantiate(turretModelToBuild.prefab, getBuildPosition(), Quaternion.identity);
+		turret = _turretPrefab;
+		this.turretModel = turretModelToBuild;
+
+		//build effect
+		GameObject buildEffect = Instantiate(buildManager.buildEffectParticle, getBuildPosition(), Quaternion.identity);
+		Destroy(buildEffect, 5f);
+	}
+
+	public void UpgradeTurret()
+	{
+		if (PlayerStats.Money < turretModel.upgradeCost)
+		{
+			Debug.Log("Not Enough money to build!!");
+			return;
+		}
+
+		//destroy old turret
+		Destroy(turret);
+
+		PlayerStats.Money -= turretModel.upgradeCost;
+		
+		//build new one
+		GameObject _turret = Instantiate(turretModel.upgradePrefab, getBuildPosition(), Quaternion.identity);
+		turret = _turret;
+
+		//upgrade and build effetct
+		GameObject buildEffect = Instantiate(buildManager.buildEffectParticle, getBuildPosition(), Quaternion.identity);
+		Destroy(buildEffect, 2f);
+		isUpgraded = true;
+		
+	}
 
 	public Vector3 getBuildPosition()
 	{
