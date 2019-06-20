@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -545,6 +545,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1611033301}
+  - {fileID: 392064595}
   m_Father: {fileID: 723455932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -595,7 +596,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 70016433}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 538763562}
+        m_MethodName: SellTurret
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &70016433
@@ -954,6 +966,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildEffectParticle: {fileID: 5443372560153020591, guid: 566ab1e620b4e78448ed7295d6f1c3ff,
+    type: 3}
+  sellEffectParticle: {fileID: 5443372560153020591, guid: ff1bb9ec07289f141a082e307181d976,
     type: 3}
   nodeUI: {fileID: 538763562}
 --- !u!114 &102566870
@@ -3333,6 +3347,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 378396298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &392064594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 392064595}
+  - component: {fileID: 392064597}
+  - component: {fileID: 392064596}
+  m_Layer: 5
+  m_Name: Sell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &392064595
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392064594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 70016431}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &392064596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392064594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 7
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 50$
+--- !u!222 &392064597
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392064594}
+  m_CullTransparentMesh: 0
 --- !u!1001 &395005164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4897,6 +4990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 538763560}
   upgradeCost: {fileID: 107466286}
+  sellAmount: {fileID: 392064596}
   upgradeButton: {fileID: 1686542151}
 --- !u!1001 &539494747
 PrefabInstance:
@@ -6335,15 +6429,17 @@ MonoBehaviour:
   missileLauncher:
     prefab: {fileID: 4581000597240808843, guid: c2657f15076068d438e21dd24122001a,
       type: 3}
-    upgradePrefab: {fileID: 0}
+    upgradePrefab: {fileID: 4581000597240808843, guid: 1d9f9f626c756f543926428827afaaa8,
+      type: 3}
     cost: 200
-    upgradeCost: 0
+    upgradeCost: 250
   laserBeamer:
     prefab: {fileID: 3918739009902328966, guid: b9c7dfee8fea43843851b572920c1528,
       type: 3}
-    upgradePrefab: {fileID: 0}
+    upgradePrefab: {fileID: 3918739009902328966, guid: 6b201dd07e8507343aed236d18f2b545,
+      type: 3}
     cost: 350
-    upgradeCost: 0
+    upgradeCost: 500
 --- !u!1 &775059649
 GameObject:
   m_ObjectHideFlags: 0
@@ -11897,15 +11993,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '<b>SELL</b>
-
-    50$'
+  m_Text: <b>SELL</b>
 --- !u!222 &1611033303
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12538,7 +12632,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 538763562}
-        m_MethodName: Upgrade
+        m_MethodName: UpgradeTurret
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

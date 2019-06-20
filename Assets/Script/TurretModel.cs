@@ -9,4 +9,9 @@ public class TurretModel
 	public GameObject upgradePrefab;
 	public int cost;
 	public int upgradeCost;
+
+	public int getSellCost()
+	{
+		return this.cost / 2;
+	}
 }

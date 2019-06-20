@@ -12,6 +12,8 @@ public class BuildManager : MonoBehaviour
 
 	public GameObject buildEffectParticle;
 
+	public GameObject sellEffectParticle;
+
 	public NodeUI nodeUI;
 
     private void Awake()

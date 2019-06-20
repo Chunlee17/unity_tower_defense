@@ -87,6 +87,16 @@ public class Node : MonoBehaviour
 		
 	}
 
+	public void SellTurret()
+	{
+		PlayerStats.Money += turretModel.getSellCost();
+		GameObject sellEffect  = Instantiate(buildManager.sellEffectParticle, getBuildPosition(), Quaternion.identity);
+		Destroy(sellEffect, 3f);
+		Destroy(turret);
+		turretModel = null;
+
+	}
+
 	public Vector3 getBuildPosition()
 	{
 		return transform.position + offset;
