@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 	public string LevelToLoad = "Level01";
+	public SceneFader sceneFader;
     public void Play()
 	{
-		SceneManager.LoadScene(LevelToLoad);
+		sceneFader.Fadeto(LevelToLoad);
 	}
 
 	public void Quit()

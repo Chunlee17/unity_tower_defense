@@ -19,7 +19,6 @@ public class WaveSpawner : MonoBehaviour
 	private void Start()
 	{
 		enemy = enemyPrafab.GetComponent<Enemy>();
-		enemyStartHealth = enemy.Health;
 	}
 	void Update()
     {
