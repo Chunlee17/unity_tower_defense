@@ -47,7 +47,7 @@ public class Node : MonoBehaviour
 	{
 		if (PlayerStats.Money < turretModelToBuild.cost)
 		{
-			Debug.Log("Not Enough money to build!!");
+			SSTools.ShowMessage("Not Enough Money to Buy", SSTools.Position.bottom, SSTools.Time.oneSecond);
 			return;
 		}
 
@@ -67,7 +67,7 @@ public class Node : MonoBehaviour
 	{
 		if (PlayerStats.Money < turretModel.upgradeCost)
 		{
-			Debug.Log("Not Enough money to build!!");
+			SSTools.ShowMessage("Not Enough Money to Upgrade", SSTools.Position.bottom, SSTools.Time.oneSecond);
 			return;
 		}
 

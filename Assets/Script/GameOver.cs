@@ -13,6 +13,7 @@ public class GameOver : MonoBehaviour
 	private void OnEnable()
 	{
 		Time.timeScale = 0f;
+		WaveSpawner.EnemiesAlive = 0;
 		roundsText.text = PlayerStats.Rounds.ToString();
 	}
 

@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour {
 
 	public Image healthBar;
 
+	private bool isDead = false;
+
 	private void Start()
 	{
 		Speed = startSpeed;
@@ -31,7 +33,7 @@ public class Enemy : MonoBehaviour {
 	{
 		Health -= damage;
 		healthBar.fillAmount = Health / StartHealth;
-		if (Health <= 0)
+		if (Health <= 0 && !isDead)
 		{
 			Die();
 		}
@@ -39,6 +41,7 @@ public class Enemy : MonoBehaviour {
 
 	void Die()
 	{
+		isDead = true;
 		WaveSpawner.EnemiesAlive--;
 		GameObject deathEffect = Instantiate(enemyDeathEffect, transform.position, transform.rotation);
 		PlayerStats.Money += worth;
