@@ -26,4 +26,9 @@ public class LoadLevel : MonoBehaviour
 	{
 		sceneFader.Fadeto(levelName);
 	}
+
+	public void BackButton()
+	{
+		sceneFader.Fadeto("MainMenu");
+	}
 }

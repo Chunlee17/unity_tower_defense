@@ -29,12 +29,13 @@ public class WaveSpawner : MonoBehaviour
 
 	void Update()
     {
+		waveText.text = string.Format("Total Waves: {0}\n Current wave: {1}\n Enemy Alives: {2}", waves.Length, waveIndex, EnemiesAlive);
 		if (EnemiesAlive > 0)
 		{
 			return;
 		}
 
-		if (waveIndex == waves.Length)
+		if (waveIndex == waves.Length && PlayerStats.Lives > 0)
 		{
 			gameManager.WinLevel();
 			this.enabled = false;
@@ -43,10 +44,10 @@ public class WaveSpawner : MonoBehaviour
 
 		if (countdown <= 0f)
         {
-			waveText.CrossFadeAlpha(1, 0, true);
             StartCoroutine(spawnWave());
             countdown = timeBetweenWaves;
-        }
+			waveIndex++;
+		}
         countdown -= Time.deltaTime;
 		countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
 
@@ -61,17 +62,11 @@ public class WaveSpawner : MonoBehaviour
 
 		EnemiesAlive = wave.count;
 
-		waveText.text = "Wave: " + (waveIndex+1).ToString();
-
-		waveText.CrossFadeAlpha(0, 2f,true);
-
         for (int i = 1; i <= wave.count; i++)
         {
             spawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f / wave.rate);
         }
-
-		waveIndex++;
 	}
 
     void spawnEnemy(GameObject enemy)
